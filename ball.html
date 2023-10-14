@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Bouncing Ball (HTML 5)</title>
+  <script>
+
+//Initalization for the aspects of the "box" 
+    var MIN_X = 0;	//Baby start duh
+    var MIN_Y = 0;	//Baby start duh
+    var WIDTH = 600; 		//This is the width of the "box" 	
+    var HEIGHT = 530; 		//This is the length of the "box" 
+    var MAX_X = MIN_X + WIDTH - 1;	//For "it" to not escape the "box" this is one less
+    var MAX_Y = MIN_Y + HEIGHT - 1;	//For "it" to not escape the "box" this is one less
+
+//Size of the "thing" this is something like an initialization 
+    var ballRadius = 30; 
+    var ballSize = ballRadius * 2 + 1;
+
+// This is the current location of the ball
+    var ballCenterX = (HEIGHT - 2 * ballSize) * Math.random() + (MIN_X + ballSize);
+    var ballCenterY = (HEIGHT - 2 * ballSize) * Math.random() + (MIN_Y + ballSize);
+
+
+//The current speed of the "thing" within "the box" it is stuck in
+    var ballSpeedX = 10;
+    var ballSpeedY = 10;
+    var context;
+
+//This is the creation of the "box" the "thing" will be stuck in
+    function init() {
+      var canvas = document.getElementById('box');
+      canvas.width = WIDTH;
+      canvas.height = HEIGHT;
+      canvas.style.border = "1px solid";
+      context = canvas.getContext('2d');
+      setInterval(draw, 30);
+    }
+
+// Draw the ball... Or the actual creation of a Ball (since in coding a "ball" doesnt exist until i make it)
+    function draw() {
+      // Calculate the ball's new position
+      ballCenterX += ballSpeedX;
+      ballCenterY += ballSpeedY;
+      // Check if the ball moves over the bounds
+      // If so, adjust the position and speed.
+      if (ballCenterX - ballRadius < MIN_X) {
+        ballSpeedX = -ballSpeedX; // Reflect along normal
+        ballCenterX = MIN_X + ballRadius; // Re-position the ball at the edge
+      } else if (ballCenterX + ballRadius > MAX_X) {
+        ballSpeedX = -ballSpeedX;
+        ballCenterX = MAX_X - ballRadius;
+      }
+
+
+
+
+// May cross both x and y bounds
+      if (ballCenterY - ballRadius < MIN_Y) {
+        ballSpeedY = -ballSpeedY;
+        ballCenterY = MIN_Y + ballRadius;
+      } else if (ballCenterY + ballRadius > MAX_Y) {
+        ballSpeedY = -ballSpeedY;
+        ballCenterY = MAX_Y - ballRadius;
+      }
+
+
+
+//This part of the code is the Actual Aspects of the Ball like Color, Pathing, and Reaction to reaching the box
+      context.clearRect(MIN_X, MIN_Y, MAX_X, MAX_Y);
+      context.fillStyle = "#8633FF";
+      context.beginPath();
+      context.arc(ballCenterX, ballCenterY, ballRadius, 0, Math.PI * 2, true);
+      context.closePath();
+      context.fill();
+    }
+    window.addEventListener("load", init, true);
+  </script>
+</head>
+
+<body>
+  <section>
+    <h2>Bouncing Ball (on HTML 5 Canvas)</h2>
+    <canvas id="box">Canvas not supported</canvas>
+  </section>
+</body>
+</html>

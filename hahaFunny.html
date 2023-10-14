@@ -1,0 +1,66 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>haha funny the dvd thingy you know... please kill me</title>
+</head>
+
+<body>
+    <section>
+        <h2>This isn't even funny why did I make this</h2>
+        <canvas id="box">Canvas is being a bitch</canvas>
+    </section>
+
+    <!-- This is awful -->
+    <script>
+        var min_x = 0;
+        var min_y = 0;
+        var width = 600;
+        var height = 400;
+        var max_x = min_x + width - 1;
+        var max_y = min_y + height - 1;
+
+        var dvdThingyWidth = 60;
+        var dvdThingyHeight = 60;
+
+        var dvdThingyX = (width - dvdThingyWidth) * Math.random() + min_x;
+        var dvdThingyY = (height - dvdThingyHeight) * Math.random() + min_y;
+
+        var speedX = 6;
+        var speedY = 6;
+
+        var context;
+
+        function hahaFunny() {
+            var canvas = document.getElementById('box');
+            canvas.width = width;
+            canvas.height = height;
+            canvas.style.border = "1px solid";
+            context = canvas.getContext('2d');
+            setInterval(draw, 30);
+        }
+
+        function draw() {
+            dvdThingyX += speedX;
+            dvdThingyY += speedY;
+
+            if (dvdThingyX < min_x || dvdThingyX + dvdThingyWidth > max_x) {
+                speedX *= -1;
+            }
+
+            if (dvdThingyY < min_y || dvdThingyY + dvdThingyHeight > max_y) {
+                speedY *= -1;
+            }
+
+            context.clearRect(min_x, min_y, max_x, max_y);
+            var IwannaDie = new Image();
+            IwannaDie.src = 'https://steamuserimages-a.akamaihd.net/ugc/169286603359378697/5AE2A6E37D651E16964EDA7CA15830EEAEA78002/?imw=512&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false';
+            context.drawImage(IwannaDie, dvdThingyX, dvdThingyY, dvdThingyWidth, dvdThingyHeight);
+        }
+
+        window.addEventListener("load", hahaFunny, true);
+    </script>
+</body>
+
+</html>
